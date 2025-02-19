@@ -1,0 +1,29 @@
+.menu {
+    width: 100%;
+    background-color: #4d5791;
+    height: 60px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .menu ul li a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .menu ul li a:hover {
+    background-color: #fff;
+    color: #4d5791;
+    border-radius: 5px;
+  }
