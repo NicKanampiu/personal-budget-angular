@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chart, PieController, ArcElement, Tooltip, Legend } from 'chart.js';
 
@@ -10,7 +10,7 @@ Chart.register(PieController, ArcElement, Tooltip, Legend);
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
-export class HomepageComponent implements OnInit {
+export class HomepageComponent implements OnInit, OnDestroy {
 
   public dataSource = {
     datasets: [
@@ -48,6 +48,8 @@ export class HomepageComponent implements OnInit {
           this.dataSource.labels[i] = res.myBudget[i].title;
         }
         this.createChart();
+      }, (error) => {
+        console.error('Error loading budget data', error);
       });
   }
 
@@ -63,7 +65,17 @@ export class HomepageComponent implements OnInit {
           type: 'pie',
           data: this.dataSource
         });
+      } else {
+        console.error('Failed to get 2D context');
       }
+    } else {
+      console.error('Canvas element not found');
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.myPieChart) {
+      this.myPieChart.destroy(); // Destroy the chart instance when the component is destroyed
     }
   }
 }
